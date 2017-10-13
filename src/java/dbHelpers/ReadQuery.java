@@ -58,6 +58,14 @@ public class ReadQuery {
     public String getHTMLtable(){
     String table="";
     table+= "<table border=1>";
+    table+= "<tr>";
+    table+="<th>Movie ID</th>";
+    table+="<th>Movie Name</th>";
+    table+="<th>Year Released</th>";
+    table+="<th>Genre</th>";
+    table+="<th>Producer</th>";
+    table+="<th>Update or Delete</th>";
+    table+="</tr>";
     try {
         while(this.results.next()){
             Movie movie=new Movie();
@@ -65,8 +73,8 @@ public class ReadQuery {
             movie.setMoviename(this.results.getString("moviename"));
             movie.setYearreleased(this.results.getInt("yearreleased"));
             movie.setGenre(this.results.getString("genre"));
-            movie.setProducer(this.results.getString("producer"));
-                    
+            movie.setProducer(this.results.getString("producer")); 
+            
         table += "<tr>";
             table+="<td>";
                    table+= movie.getMovieid(); 
@@ -81,7 +89,7 @@ public class ReadQuery {
                    table+= movie.getProducer(); 
                     table+="</td>";
                     table+= "<td>";
-                    table += "a<href=update?movieid=" + movie.getMovieid() + "> Update</a>" + "<a href=delete?movieid" + movie.getMovieid() + ">Delete</a>"; 
+                    table += "<href=update?movieid=" + movie.getMovieid() + "> Update</a>" + "<a href=delete?movieid=" + movie.getMovieid() + ">Delete</a>"; 
        table+="</td>";
                     table += "</tr>";
         }

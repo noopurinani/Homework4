@@ -6,8 +6,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add a Movie</title>
+        <link rel="stylesheet" type="text/css" href="newcss2.css">
     </head>
     <body>
+        <form class="form-style-7">
         <h1>Add a new Movie</h1>
         <form name="addForm" action="addMovie" method="get">
             <label>Movie Name:</label>
