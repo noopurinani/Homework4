@@ -13,14 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Movie;
 
-public class ReadQuery {
-    private Connection conn;
-    private ResultSet results;
- 
- 
-    public ReadQuery() throws ClassNotFoundException, SQLException {
- 
-        try {
+public class SearchQuery {
+private Connection conn; 
+private ResultSet results;
+public SearchQuery() throws SQLException{
+     try {
             Properties props = new Properties();
             InputStream instr = getClass().getResourceAsStream("dbConn.properties");
            
@@ -31,31 +28,26 @@ public class ReadQuery {
             String url = props.getProperty("server.name");
             String username = props.getProperty("user.name");
             String passwd = props.getProperty("user.password");
-            Class.forName(driver);
+         try {
+             Class.forName(driver);
+         } catch (ClassNotFoundException ex) {
+             Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
+         }
            
             conn = DriverManager.getConnection(url, username, passwd);
            
         } catch (IOException ex) {
-            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
+}
+ public void doSearch(String moviename) throws SQLException{
  
-    }
-   
-    public void doRead(){
-       
-        try {
-            String query = "SELECT * FROM Movie ORDER by movieid ASC";
-           
-            PreparedStatement ps = conn.prepareStatement(query);
-            this.results = ps.executeQuery();
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-    }
-
-    public String getHTMLtable(){
+     String query= "SELECT * FROM Movie WHERE Upper(Moviename) LIKE ? ORDER By movieid";
+     PreparedStatement ps = conn.prepareStatement(query);
+     ps.setString(1, "%" + moviename.toUpperCase() + "%");
+     this.results = ps.executeQuery();
+ }
+public String getHTMLtable(){
     String table="";
     table+= "<table border=1>";
     table+= "<tr>";
@@ -89,18 +81,16 @@ public class ReadQuery {
                    table+= movie.getProducer(); 
                     table+="</td>";
                     table+= "<td>";
-                    table += "<a href=update?movieid=" + movie.getMovieid() + "> Update</a>" + "<a href=delete?movieid=" + movie.getMovieid() + ">Delete</a>"; 
+                    table += "<href=update?movieid=" + movie.getMovieid() + "> Update</a>" + "<a href=delete?movieid=" + movie.getMovieid() + ">Delete</a>"; 
        table+="</td>";
                     table += "</tr>";
         }
     } 
     catch (SQLException ex) {
-        Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
     }
     
     table+= "</table>";
             return table;
 }
-
 }
-

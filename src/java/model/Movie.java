@@ -69,5 +69,13 @@ public Movie(int Movieid, String Moviename, int Yearreleased, String Genre, Stri
         return "Movie{" + "movieid=" + Movieid + ", moviename=" + Moviename + ", yearreleased=" + Yearreleased + ", genre=" + Genre + ", producer=" + Producer + '}';
     }
 
+    public void setmovieid(int movieid) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setYearReleased(int yearreleased) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
 }

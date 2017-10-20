@@ -7,8 +7,17 @@
         <link rel="stylesheet" type="text/css" href="newcss.css">
     </head>
     <body>
+        <div class="wrap">
+            <%@ include file= "header.jsp" %>
+            <%@ include file= "menu.jsp" %>
+            <div class="main">
         <h1>My Movies Database</h1>
         <a href="read">View all Movies</a>
-    </body>
+        <br> <br>
+        <a href="search.jsp">Search Movies</a>
+            </div>
+        <%@ include file= "footer.jsp" %>
+        </div>
+        </body>
   
 </html>
